@@ -11,14 +11,29 @@ people to see their scores.
 > open items are in [docs/TODO.md](docs/TODO.md). The screenshots below show the real AnimeThemes
 > catalog; the users, scores and reviews are generated demo data (`bun run db:seed-demo`).
 
+<h3 align="center">Home: the current season's top and the all-time chart</h3>
+<p align="center">
+  <img src="docs/images/home.webp" alt="Home page for visitors: banner, top of Fall 2026, all-time top" width="100%">
+</p>
+
+<h3 align="center">Theme page: your score, the distribution, reviews</h3>
 <p align="center">
   <img src="docs/images/theme.webp" alt="Theme page for JUJUTSU KAISEN Season 2 OP2: score picker, distribution, reviews" width="100%">
 </p>
-<p align="center">
-  <img src="docs/images/rankings-mobile.webp" alt="All-time ranking on a phone" width="32%">
-  <img src="docs/images/profile-mobile.webp" alt="Profile on a phone: top 10 and stats" width="32%">
-  <img src="docs/images/anime-mobile-light.webp" alt="Sound! Euphonium 3 on a phone, light theme" width="32%">
-</p>
+
+<h3 align="center">On a phone</h3>
+<table align="center">
+  <tr>
+    <th>All-time ranking</th>
+    <th>Profile: top 10 and stats</th>
+    <th>Anime page, light theme</th>
+  </tr>
+  <tr>
+    <td><img src="docs/images/rankings-mobile.webp" alt="All-time ranking on a phone"></td>
+    <td><img src="docs/images/profile-mobile.webp" alt="Profile on a phone: top 10 and stats"></td>
+    <td><img src="docs/images/anime-mobile-light.webp" alt="Sound! Euphonium 3 on a phone, light theme"></td>
+  </tr>
+</table>
 
 ## Engineering highlights
 
