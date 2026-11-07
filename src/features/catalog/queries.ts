@@ -76,7 +76,8 @@ export function listSeasonAnime(database: Database, year: number, season: Season
     .orderBy(asc(anime.titleRomaji))
 }
 
-// `null` when the slug doesn't exist. `viewerUserId` fills `myScore`; null for anonymous visitors.
+// `null` when the slug doesn't exist. `viewerUserId` fills `myScore` and `hasMyReview`; null for
+// anonymous visitors.
 export async function findAnimeDetail(database: Database, slug: string, viewerUserId: string | null) {
   const animeRow = await database.query.anime.findFirst({ where: eq(anime.slug, slug) })
   if (!animeRow) return null
@@ -87,6 +88,8 @@ export async function findAnimeDetail(database: Database, slug: string, viewerUs
       voteCount,
       averageScore,
       myScore: sql<number | null>`max(${rating.score}) filter (where ${rating.userId} = ${viewerUserId})`,
+      // Clearing the score deletes the review with it, so the score picker asks first.
+      hasMyReview: sql<boolean>`exists (select 1 from ${review} where ${review.themeId} = ${theme.id} and ${review.userId} = ${viewerUserId})`,
     })
     .from(theme)
     .innerJoin(anime, eq(anime.id, theme.animeId))

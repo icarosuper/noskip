@@ -32,6 +32,14 @@ describe('findAnimeDetail', () => {
     expect(detail?.themes.map((animeTheme) => animeTheme.myScore)).toEqual([10, 8])
   })
 
+  it('tells which themes the viewer reviewed', async () => {
+    const bobDetail = await findAnimeDetail(database, ANIME_SLUG.starlight, FIXTURE_USERS.bob.id)
+    const anonymousDetail = await findAnimeDetail(database, ANIME_SLUG.starlight, null)
+
+    expect(bobDetail?.themes.map((animeTheme) => animeTheme.hasMyReview)).toEqual([true, false])
+    expect(anonymousDetail?.themes.map((animeTheme) => animeTheme.hasMyReview)).toEqual([false, false])
+  })
+
   it('carries the spoiler and NSFW flags', async () => {
     const iron = await findAnimeDetail(database, ANIME_SLUG.iron, null)
     const kitchen = await findAnimeDetail(database, ANIME_SLUG.kitchen, null)

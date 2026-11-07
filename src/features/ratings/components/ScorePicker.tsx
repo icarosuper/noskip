@@ -7,6 +7,8 @@ import { rateTheme, removeRating } from '../server'
 interface ScorePickerProps {
   themeId: number
   currentScore: number | null
+  // The viewer reviewed this theme: clearing the score deletes the review too (it cascades).
+  hasReview: boolean
   label: string
   // Called after the score is saved (or cleared) and the loaders re-ran.
   onSaved?: () => void
@@ -14,17 +16,23 @@ interface ScorePickerProps {
 
 // Ten buttons, 1–10. Tapping the current score again clears it (asks first if a review would go
 // with it — the review cascades from the rating).
-export function ScorePicker({ themeId, currentScore, label, onSaved }: ScorePickerProps) {
+export function ScorePicker({ themeId, currentScore, hasReview, label, onSaved }: ScorePickerProps) {
   const router = useRouter()
   const [isSaving, setIsSaving] = useState(false)
   // Why the last pick didn't save (e.g. the write rate limit); cleared by the next pick.
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   async function pick(score: number) {
+    const isClearing = score === currentScore
+    const wouldDeleteReview = isClearing && hasReview
+    if (wouldDeleteReview) {
+      const confirmed = window.confirm('Remove your score? Your review of this theme will be deleted too.')
+      if (!confirmed) return
+    }
+
     setIsSaving(true)
     setErrorMessage(null)
     try {
-      const isClearing = score === currentScore
       if (isClearing) await removeRating({ data: { themeId } })
       else await rateTheme({ data: { themeId, score } })
       // Re-runs the loaders so averages and vote counts refresh.

@@ -193,6 +193,7 @@ function ThemePage() {
               <ScorePicker
                 themeId={theme.themeId}
                 currentScore={viewer.score}
+                hasReview={viewer.reviewBody !== null}
                 label={`Your score for ${songName}`}
               />
             ) : (

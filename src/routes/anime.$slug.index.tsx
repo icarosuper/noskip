@@ -72,6 +72,7 @@ function ThemeWithQuickRate({ theme, isSignedIn }: { theme: AnimeTheme; isSigned
           <ScorePicker
             themeId={theme.themeId}
             currentScore={theme.myScore}
+            hasReview={theme.hasMyReview}
             label={`Your score for ${songName}`}
             onSaved={() => setIsRating(false)}
           />

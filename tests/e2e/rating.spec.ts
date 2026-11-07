@@ -119,6 +119,55 @@ test.describe('social', () => {
   })
 })
 
+// Clearing a score deletes the review that goes with it (the review cascades from the rating).
+test.describe('clearing a score that has a review', () => {
+  test.use(signedInAs('bob'))
+  const BOB_REVIEW = /The chorus hits right as the baton changes hands/
+
+  test('asks first, and keeps both when the user cancels', async ({ page }) => {
+    await page.goto(STARLIGHT_OP1)
+    const dialogMessages: string[] = []
+    page.once('dialog', (dialog) => {
+      dialogMessages.push(dialog.message())
+      void dialog.dismiss()
+    })
+
+    await page.getByRole('button', { name: /Score 9 \(tap again to remove\)/ }).click()
+
+    expect(dialogMessages).toEqual(['Remove your score? Your review of this theme will be deleted too.'])
+    await expect(page.getByRole('button', { name: /Score 9/ })).toHaveAttribute('aria-pressed', 'true')
+    await expect(page.getByText(BOB_REVIEW).first()).toBeVisible()
+  })
+
+  test('removes the score and the review when the user confirms', async ({ page }) => {
+    await page.goto(STARLIGHT_OP1)
+    page.once('dialog', (dialog) => dialog.accept())
+
+    await page.getByRole('button', { name: /Score 9 \(tap again to remove\)/ }).click()
+
+    await expect(page.getByRole('button', { name: 'Score 9', exact: true })).toHaveAttribute(
+      'aria-pressed',
+      'false',
+    )
+    await expect(page.getByText(BOB_REVIEW)).toHaveCount(0)
+  })
+
+  test('asks from the anime page too', async ({ page }) => {
+    await page.goto(`/anime/${ANIME_SLUG.starlight}`)
+    let wasAsked = false
+    page.once('dialog', (dialog) => {
+      wasAsked = true
+      void dialog.dismiss()
+    })
+
+    await page.getByRole('button', { name: /Your score for Run to the Stars: 9/ }).click()
+    await page.getByRole('button', { name: /Score 9 \(tap again to remove\)/ }).click()
+
+    await expect.poll(() => wasAsked).toBe(true)
+    await expect(page.getByRole('button', { name: /Your score for Run to the Stars: 9/ })).toBeVisible()
+  })
+})
+
 test.describe('settings', () => {
   test.use(signedInAs('alice'))
 
