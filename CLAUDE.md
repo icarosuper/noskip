@@ -23,10 +23,15 @@ bun run dev                                      # http://localhost:3000
 bun run build
 bun run typecheck                                # tsc --noEmit
 bun run check                                    # biome check (lint + format); add --write to fix
+bun run test                                     # unit + integration (Vitest; Postgres for integration)
+bun run e2e                                      # Playwright on the fixture server (:3210)
+bun run ui:screens                               # screenshot every screen to tests/e2e/.artifacts/screens/
+bun run verify                                   # typecheck + check + test + e2e
 bun run db:generate --name <change>              # new migration after editing src/db/schema/
 ```
 
-Full setup (env, OAuth apps): [docs/guides/development.md](docs/guides/development.md).
+Full setup (env, OAuth apps): [docs/guides/development.md](docs/guides/development.md). Tests:
+[docs/agents/testing.md](docs/agents/testing.md).
 
 ## Stack
 
@@ -96,7 +101,7 @@ whether the user wants a branch.
 ## Never commit without an explicit request
 
 1. Implement the change
-2. Run `bun run typecheck` and `bun run check` (and tests, once they exist)
+2. Run `bun run typecheck`, `bun run check` and `bun run test` (plus `bun run e2e` if the UI changed)
 3. Show what changed and **suggest one** commit title
 4. Wait for the user to approve or ask for the commit
 
@@ -132,7 +137,7 @@ Read the doc **before** the task it describes.
 
 ## After any change
 
-1. `bun run typecheck` and `bun run check`.
+1. `bun run typecheck`, `bun run check` and `bun run test` (plus `bun run e2e` if the UI changed).
 2. **Update the affected docs in the same change:**
    - new/removed route, server function or component → `docs/agents/features-index.md`
    - schema, data flow, layout or an invariant changed → `docs/agents/architecture.md` (a schema
