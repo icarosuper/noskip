@@ -36,6 +36,8 @@ Before pushing, `bun run verify` locally runs the same checks except the migrati
 - **Where a test goes:** pure logic (parsing, the bayesian formula, constants) → unit, next to the
   file. Anything that runs SQL (`features/*/queries.ts`, the importer's upsert) → integration, next
   to the file, named `*.integration.test.ts`.
+- **Ownership:** a write query must only touch the acting user's rows. Each write gets a test
+  where another user acts on the same theme ("ownership" blocks in the `queries` tests).
 - **Database:** the global setup (`tests/support/integration-global-setup.ts`) creates
   `noskip_test` if missing and applies `drizzle/` migrations. Each file calls
   `setupTestDatabase()` or `setupTestDatabase(seedAll)` (`tests/support/integration.ts`): every

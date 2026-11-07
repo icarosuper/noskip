@@ -18,6 +18,7 @@ src/
     schema/catalog.ts    → anime, theme, song, artist, song_artist (written only by the importer)
     schema/ratings.ts    → rating, review, review_report, favorite (top 10)
     schema/social.ts     → profile (bio + settings), follow
+    schema/rate-limit.ts → rate_limit counters (decisions.md #14)
   lib/auth-options.ts    → Better Auth config, shared by the app and the test auth
   lib/auth.ts            → Better Auth server instance
   lib/auth-client.ts     → Better Auth React client
@@ -80,6 +81,8 @@ anime 1──n theme n──1 song n──n artist   (song_artist carries credit
 
 user 1──0..1 profile   (bio, is_private, show_spoilers, show_nsfw; no row = defaults)
 user n──n user         (follow: follower_id → following_id)
+
+rate_limit             (key → window start + hits; no FK, keys like `writes:<userId>`)
 ```
 
 - **The rated entity is `theme`, not `song`**
@@ -108,7 +111,8 @@ user n──n user         (follow: follower_id → following_id)
 - **Onboarding gate:** `routes/__root.tsx` `beforeLoad` loads the session on every navigation and
   redirects a signed-in user with no username to `/onboarding`. The username becomes `/u/<name>`.
 - `features/auth/server.ts`: `getCurrentUser` (server function, for routes) and `getSessionUser` /
-  `requireUserId` (server-only, for other server functions).
+  `authorizeWrite` (server-only: first line of every write; session user + write rate limit,
+  [decisions.md #14](decisions.md#14-write-rate-limits-are-counted-in-postgres-one-budget-per-user)).
 
 ## What bites
 

@@ -85,3 +85,22 @@ describe('settings', () => {
     })
   })
 })
+
+// The acting user's id comes from the session (authorizeWrite); these writes must stay inside it.
+describe("ownership: a user's writes never touch another user's rows", () => {
+  it("saving settings leaves other users' settings", async () => {
+    const aliceSettingsBefore = await findSettings(database, alice.id)
+
+    await updateSettings(database, bob.id, { bio: 'Bob was here', isPrivate: true })
+
+    expect(await findSettings(database, alice.id)).toEqual(aliceSettingsBefore)
+  })
+
+  it("unfollowing someone leaves other users' follows of them", async () => {
+    await unfollowUser(database, carol.id, 'bob')
+
+    expect(
+      (await listFollows(database, 'bob', 'followers', null))?.users.map((user) => user.username),
+    ).toEqual(['alice'])
+  })
+})

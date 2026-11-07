@@ -23,7 +23,10 @@ case appears).
 ## Server functions
 
 - Input is validated with zod in `.validator(...)`. Never trust a client-sent user id — writes get
-  the user from `requireUserId()`.
+  the user from `authorizeWrite()`, which also counts the write against the user's rate limit.
+  `src/features/write-authorization.test.ts` fails a `POST` server function that skips it.
+- An error the user should read ("your top 10 is full") extends `UserFacingError`
+  (`src/lib/errors.ts`): its message reaches the UI and it is logged as a warning, not a failure.
 - `GET` for reads, `POST` for writes.
 - Missing entity → `throw notFound()` (router renders the not-found component), not `null`.
 - Server-only helpers → `createServerOnlyFn`

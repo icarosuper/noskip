@@ -9,6 +9,7 @@ import { setupTestDatabase } from '../../../tests/support/integration'
 import {
   addFavorite,
   deleteRating,
+  deleteReview,
   listFavoriteThemeIds,
   moveFavorite,
   RatingError,
@@ -168,5 +169,27 @@ describe('top 10', () => {
       RatingError,
     )
     expect(await listFavoriteThemeIds(database, bobId)).toHaveLength(MAX_FAVORITES)
+  })
+})
+
+// Every write takes the acting user's id from the session (authorizeWrite) and must only touch that
+// user's rows, whatever theme id the client sends. Bob acting on themes where Alice has data:
+describe("ownership: a user's writes never touch another user's rows", () => {
+  it("deleting a review leaves other users' reviews of the theme", async () => {
+    const themeId = await themeIdOf(THEME.starlightOp1)
+
+    await deleteReview(database, FIXTURE_USERS.alice.id, themeId)
+
+    expect(await database.$count(review, eq(review.userId, FIXTURE_USERS.bob.id))).toBe(1)
+  })
+
+  it("removing or moving a favorite leaves other users' top 10s", async () => {
+    const aliceId = FIXTURE_USERS.alice.id
+    const aliceTopBefore = await listFavoriteThemeIds(database, aliceId)
+
+    await removeFavorite(database, FIXTURE_USERS.bob.id, await themeIdOf(THEME.starlightOp1))
+    await moveFavorite(database, FIXTURE_USERS.bob.id, await themeIdOf(THEME.ironOp1), -1)
+
+    expect(await listFavoriteThemeIds(database, aliceId)).toEqual(aliceTopBefore)
   })
 })

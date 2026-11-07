@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm'
 import type { Database } from '#/db/client'
-import { favorite, follow, profile, rating, review, theme, user } from '#/db/schema'
+import { favorite, follow, profile, rateLimit, rating, review, theme, user } from '#/db/schema'
 import { upsertAnime } from '../../scripts/import/upsert'
 import { buildFixtureCatalog } from './catalog'
 import {
@@ -104,6 +104,8 @@ export async function resetMutableState(database: Database) {
   await database.delete(favorite)
   await database.delete(follow)
   await database.delete(profile)
+  // The fixture users write in every test; their budget must not carry over between tests.
+  await database.delete(rateLimit)
   await seedUserContent(database)
   for (const fixtureUser of Object.values(FIXTURE_USERS)) {
     await database

@@ -1,6 +1,7 @@
 import { createServerFn, createServerOnlyFn } from '@tanstack/react-start'
 import { getRequestHeaders } from '@tanstack/react-start/server'
 import { db } from '#/db'
+import { enforceRateLimit, USER_WRITE_LIMIT } from '#/features/abuse/queries'
 import { findSettings, type UserSettings } from '#/features/users/queries'
 import { auth } from '#/lib/auth'
 
@@ -26,9 +27,12 @@ export const getSessionUser = createServerOnlyFn(async (): Promise<CurrentUser |
 // Loaded once per navigation by the root route; components read it from route context.
 export const getCurrentUser = createServerFn({ method: 'GET' }).handler(() => getSessionUser())
 
-// For server functions that write: throws instead of returning null.
-export const requireUserId = createServerOnlyFn(async (): Promise<string> => {
+// The first line of every server function that writes: throws when nobody is signed in or the
+// user went over the write limit (decisions.md #14), and returns the id to write as. Never take
+// the user id from the client.
+export const authorizeWrite = createServerOnlyFn(async (): Promise<string> => {
   const currentUser = await getSessionUser()
   if (!currentUser) throw new Error('Not signed in')
+  await enforceRateLimit(db, `writes:${currentUser.id}`, USER_WRITE_LIMIT)
   return currentUser.id
 })

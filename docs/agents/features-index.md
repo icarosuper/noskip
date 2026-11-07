@@ -49,12 +49,22 @@ From `lg`, the theme page and the profile are two columns.
 
 | File | Contents |
 |---|---|
-| `server.ts` | `getCurrentUser` (server fn, includes the user's settings), `getSessionUser`, `requireUserId` (server-only), `CurrentUser` |
+| `server.ts` | `getCurrentUser` (server fn, includes the user's settings), `getSessionUser`, `authorizeWrite` (server-only), `CurrentUser` |
 
 Components: `ProviderIcons.tsx` (Discord/Google marks for `/login`).
 
 Config: `src/lib/auth-options.ts` (shared with tests), `src/lib/auth.ts`, `src/lib/auth-client.ts`.
 HTTP handler: `routes/api/auth/$.ts`. Account deletion: Better Auth `deleteUser` (enabled in options).
+
+## abuse — `src/features/abuse/`
+
+| File | Contents |
+|---|---|
+| `queries.ts` | `enforceRateLimit`, `countRateLimitHit`, `USER_WRITE_LIMIT`, `RateLimitError` ([decisions.md #14](decisions.md#14-write-rate-limits-are-counted-in-postgres-one-budget-per-user)) |
+
+Used by `authorizeWrite` (auth). Ownership guard over all write server functions:
+`src/features/write-authorization.test.ts`. User-caused errors extend `UserFacingError`
+(`src/lib/errors.ts`).
 
 ## catalog — `src/features/catalog/`
 

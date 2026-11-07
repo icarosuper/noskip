@@ -2,8 +2,9 @@ import { and, asc, eq } from 'drizzle-orm'
 import type { Database } from '#/db/client'
 import { favorite, MAX_FAVORITES, rating, review, reviewReport, theme } from '#/db/schema'
 import { RATED_THEME_TYPES } from '#/features/catalog/constants'
+import { UserFacingError } from '#/lib/errors'
 
-export class RatingError extends Error {}
+export class RatingError extends UserFacingError {}
 
 async function assertRatableTheme(database: Database, themeId: number) {
   const themeRow = await database.query.theme.findFirst({

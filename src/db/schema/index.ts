@@ -1,4 +1,5 @@
 export * from './auth'
 export * from './catalog'
+export * from './rate-limit'
 export * from './ratings'
 export * from './social'

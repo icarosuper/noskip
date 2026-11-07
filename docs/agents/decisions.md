@@ -5,7 +5,7 @@ Patterns that look wrong (or arbitrary) but are intentional. Read before "fixing
 ## Index
 
 Entries are **self-contained**: read only the one you were pointed at. Cite by **anchor**, never by
-line number. A new entry takes the **next number** (highest today is **#13**) plus one line here;
+line number. A new entry takes the **next number** (highest today is **#14**) plus one line here;
 never renumber.
 
 - [**#1** — The catalog is a local copy of AnimeThemes, upserted, never deleted](#1-the-catalog-is-a-local-copy-of-animethemes-upserted-never-deleted)
@@ -21,6 +21,7 @@ never renumber.
 - [**#11** — Spoiler and NSFW themes are blurred by default](#11-spoiler-and-nsfw-themes-are-blurred-by-default)
 - [**#12** — List/grid is saved per screen and applied by CSS](#12-listgrid-is-saved-per-screen-and-applied-by-css)
 - [**#13** — The app runs on any Node host; jobs run outside it](#13-the-app-runs-on-any-node-host-jobs-run-outside-it)
+- [**#14** — Write rate limits are counted in Postgres, one budget per user](#14-write-rate-limits-are-counted-in-postgres-one-budget-per-user)
 
 ---
 
@@ -94,7 +95,7 @@ artists) plus the AniList/MAL ids. AniList's API terms forbid mass collection an
 `features/*/server.ts` files are imported by routes, so they end up in the client bundle; the Start
 compiler strips `createServerFn` handlers, but a plain exported `async function` that calls
 `getRequestHeaders()` stays, and the build fails with `[import-protection] Import denied in client
-environment`. `getSessionUser` and `requireUserId` are wrapped in `createServerOnlyFn` for that.
+environment`. `getSessionUser` and `authorizeWrite` are wrapped in `createServerOnlyFn` for that.
 
 **Don't "fix" by:** unwrapping them into plain functions, or moving them to a file routes import
 without the wrapper.
@@ -179,3 +180,30 @@ HTTP driver (Neon). If Workers is ever chosen, revisit this entry.
 **Don't "fix" by:** adding an HTTP endpoint that runs the import from inside the app, writing logs
 to files or a host-specific logging API, calling a host's storage SDK directly instead of the S3
 API, or adding per-host adapter interfaces before a second host actually exists.
+
+### 14. Write rate limits are counted in Postgres, one budget per user
+
+Every server function that writes starts with `authorizeWrite()` (`features/auth/server.ts`): it
+resolves the session user and counts one hit on `writes:<userId>` in the `rate_limit` table
+(`features/abuse/queries.ts`, `USER_WRITE_LIMIT`: 60 writes per 60 s). Over the limit it throws
+`RateLimitError`, a `UserFacingError`, so the message reaches the UI and the log records a warning.
+`src/features/write-authorization.test.ts` fails if a `POST` server function in
+`features/*/server.ts` doesn't call it, or takes a user id from the client.
+
+Why Postgres and not memory: an in-memory counter is per process, so on serverless or with two
+instances each one has its own budget and the limit means nothing
+([#13](#13-the-app-runs-on-any-node-host-jobs-run-outside-it)). The counter is one atomic upsert
+per write (fixed window, one row per key), cheap next to the write itself. One shared budget for
+all writes, because the abuse we expect is a script hammering ratings, not a person; split it per
+action only when a real case needs different numbers.
+
+Better Auth's own endpoints keep Better Auth's built-in limiter (on in production, in memory).
+That is per instance too; acceptable while sign-in goes through OAuth providers that rate-limit
+themselves. Revisit if email sign-in is ever added.
+
+New accounts' votes count immediately (2026-11-07); whether to delay them is an open item in
+`docs/TODO.md`.
+
+**Don't "fix" by:** moving the counter to memory or a module-level `Map`, calling
+`getSessionUser()` directly in a write to skip the limit, or passing the user id as server-function
+input.
