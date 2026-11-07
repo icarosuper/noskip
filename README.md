@@ -11,13 +11,13 @@ people to see their scores.
 > open items are in [docs/TODO.md](docs/TODO.md). The screenshots below show the real AnimeThemes
 > catalog; the users, scores and reviews are generated demo data (`bun run db:seed-demo`).
 
-<p>
-  <img src="docs/images/theme.webp" alt="Theme page for JUJUTSU KAISEN Season 2 OP2: score picker, distribution, reviews" width="66%">
-  <img src="docs/images/profile-mobile.webp" alt="Profile on a phone: top 10 and stats" width="30%">
+<p align="center">
+  <img src="docs/images/theme.webp" alt="Theme page for JUJUTSU KAISEN Season 2 OP2: score picker, distribution, reviews" width="100%">
 </p>
-<p>
-  <img src="docs/images/rankings.webp" alt="All-time ranking in grid view" width="66%">
-  <img src="docs/images/anime-mobile-light.webp" alt="Sound! Euphonium 3 on a phone, light theme" width="30%">
+<p align="center">
+  <img src="docs/images/rankings-mobile.webp" alt="All-time ranking on a phone" width="32%">
+  <img src="docs/images/profile-mobile.webp" alt="Profile on a phone: top 10 and stats" width="32%">
+  <img src="docs/images/anime-mobile-light.webp" alt="Sound! Euphonium 3 on a phone, light theme" width="32%">
 </p>
 
 ## Engineering highlights
