@@ -18,6 +18,19 @@
 Postgres must be up (`bun run db:up`) for everything but unit. Neither suite ever touches the dev
 database (`noskip`): connection strings live in `tests/support/env.ts`.
 
+## CI (`.github/workflows/ci.yml`)
+
+Runs on every push to `master` and every pull request, in two jobs:
+
+- **static:** `biome ci`, typecheck, the migration check, unit tests, build. The migration check
+  runs `drizzle-kit generate` and fails if it writes anything in `drizzle/`, which means a schema
+  edit was committed without its migration.
+- **database:** integration tests and E2E (Chromium only) against a Postgres service. The service
+  uses the same credentials as `docker-compose.yml`, so `tests/support/env.ts` needs no override.
+  On failure, `tests/e2e/.artifacts` is uploaded as the `playwright-report` artifact.
+
+Before pushing, `bun run verify` locally runs the same checks except the migration one.
+
 ## Unit and integration (Vitest, `vitest.config.ts`)
 
 - **Where a test goes:** pure logic (parsing, the bayesian formula, constants) → unit, next to the
