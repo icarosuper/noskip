@@ -2,6 +2,8 @@
 // Limits (docs: api-docs.animethemes.moe/graphql/intro/ratelimiting): 90 requests/minute,
 // query depth 13, complexity 10000. The REST/JSON:API is deprecated upstream; do not use it.
 
+import { z } from 'zod'
+
 const ENDPOINT = 'https://graphql.animethemes.moe/'
 const USER_AGENT = 'noskip-importer/0.1'
 // 90/min allowed; stay under it so a parallel manual request doesn't trip a 429.
@@ -48,6 +50,65 @@ export interface UpstreamAnime {
 export interface AnimePage {
   paginatorInfo: { currentPage: number; lastPage: number; hasMorePages: boolean; total: number }
   data: UpstreamAnime[]
+}
+
+// Every page is checked against this before anything is written: if AnimeThemes changes a field,
+// the import stops with a message naming it instead of writing nulls or wrong types. Recorded
+// sample: fixtures/anime-page.sample.json (animethemes-contract.test.ts).
+const nullableString = z.string().nullable()
+
+const upstreamArtistSchema = z.object({
+  id: z.number().int(),
+  slug: z.string(),
+  name: z.object({ main: z.string(), native: nullableString }),
+}) satisfies z.ZodType<UpstreamArtist>
+
+const upstreamThemeSchema = z.object({
+  id: z.number().int(),
+  type: z.enum(['OP', 'ED', 'IN']),
+  sequence: z.number().int().nullable(),
+  slug: z.string(),
+  song: z
+    .object({
+      id: z.number().int(),
+      title: z.object({ romaji: nullableString, native: nullableString }),
+      performances: z.array(z.object({ as: nullableString, artist: upstreamArtistSchema })),
+    })
+    .nullable(),
+  animethemeentries: z.array(z.object({ spoiler: z.boolean(), nsfw: z.boolean() })),
+}) satisfies z.ZodType<UpstreamTheme>
+
+export const animePageSchema = z.object({
+  paginatorInfo: z.object({
+    currentPage: z.number().int(),
+    lastPage: z.number().int(),
+    hasMorePages: z.boolean(),
+    total: z.number().int(),
+  }),
+  data: z.array(
+    z.object({
+      id: z.number().int(),
+      slug: z.string(),
+      format: nullableString,
+      year: z.number().int().nullable(),
+      season: z.enum(['WINTER', 'SPRING', 'SUMMER', 'FALL']).nullable(),
+      synopsis: nullableString,
+      title: z.object({ romaji: z.string(), english: nullableString, native: nullableString }),
+      images: z.object({ nodes: z.array(z.object({ facet: z.string(), link: z.string() })) }),
+      resources: z.object({
+        nodes: z.array(z.object({ site: z.string(), externalId: z.number().int().nullable() })),
+      }),
+      animethemes: z.array(upstreamThemeSchema),
+    }),
+  ),
+}) satisfies z.ZodType<AnimePage>
+
+export function parseAnimePage(page: unknown): AnimePage {
+  const parsed = animePageSchema.safeParse(page)
+  if (!parsed.success) {
+    throw new Error(`AnimeThemes changed the shape of animePagination:\n${z.prettifyError(parsed.error)}`)
+  }
+  return parsed.data
 }
 
 export interface AnimeFilter {
@@ -144,9 +205,10 @@ export function createAnimeThemesClient(overrides: Partial<ClientDependencies> =
   async function* fetchAnimePages(filter: AnimeFilter): AsyncGenerator<AnimePage> {
     let page = 1
     while (true) {
-      const result = await postQuery<{ animePagination: AnimePage }>(ANIME_PAGE_QUERY, { page, ...filter })
-      yield result.animePagination
-      if (!result.animePagination.paginatorInfo.hasMorePages) return
+      const result = await postQuery<{ animePagination: unknown }>(ANIME_PAGE_QUERY, { page, ...filter })
+      const animePage = parseAnimePage(result.animePagination)
+      yield animePage
+      if (!animePage.paginatorInfo.hasMorePages) return
       page++
     }
   }

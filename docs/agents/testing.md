@@ -83,4 +83,8 @@ Before pushing, `bun run verify` locally runs the same checks except the migrati
   `leaver` (deletes their account).
 - `seed.ts` — `seedAll` for a full seed, `resetMutableState` between E2E tests.
 
+The importer has its own fixture: `scripts/import/fixtures/anime-page.sample.json`, a recorded real
+AnimeThemes page. `animethemes-contract.test.ts` (unit) checks it against the client's schema and
+`upsert.integration.test.ts` imports it.
+
 A schema change usually needs these updated: see the `schema-change` skill.

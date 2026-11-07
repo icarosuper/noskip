@@ -1,0 +1,983 @@
+{
+  "paginatorInfo": {
+    "currentPage": 1,
+    "lastPage": 3,
+    "hasMorePages": true,
+    "total": 65
+  },
+  "data": [
+    {
+      "id": 4256,
+      "slug": "one_room_hiatari_futsuu_tenshi_tsuki",
+      "format": "TV",
+      "year": 2024,
+      "season": "SPRING",
+      "synopsis": "Shintarou Tokumitsu is a high schooler living all alone, but things take an unexpected turn when a girl named Towa shows up on his balcony! Not only is she incredibly pure and sweet, but there’s something different about her—something… divine. Just who is Shintarou’s new roommate, and what adorable high jinks lie in store?!",
+      "title": {
+        "romaji": "One Room, Hiatari Futsuu, Tenshi-tsuki.",
+        "english": "Studio Apartment, Good Lighting, Angel Included",
+        "native": "ワンルーム、日当たり普通、天使つき。"
+      },
+      "images": {
+        "nodes": [
+          {
+            "facet": "LARGE_COVER",
+            "link": "https://pub-92474f7785774e91a790e086dfa6b2ef.r2.dev/anime/large-cover/1M5U85y01SR8UqKU2Bn5WhidGEYsueOzPPw1cmCR.jpg"
+          },
+          {
+            "facet": "SMALL_COVER",
+            "link": "https://pub-92474f7785774e91a790e086dfa6b2ef.r2.dev/anime/small-cover/FDHBDcuZJJn3qoZ0gqN0FUKVfBkAdsj6ruWzPJxd.avif"
+          }
+        ]
+      },
+      "resources": {
+        "nodes": [
+          {
+            "site": "MAL",
+            "externalId": 56838
+          },
+          {
+            "site": "ANILIST",
+            "externalId": 169927
+          },
+          {
+            "site": "ANIDB",
+            "externalId": 18225
+          },
+          {
+            "site": "OFFICIAL_SITE",
+            "externalId": null
+          },
+          {
+            "site": "X",
+            "externalId": null
+          },
+          {
+            "site": "CRUNCHYROLL",
+            "externalId": null
+          },
+          {
+            "site": "ANIME_PLANET",
+            "externalId": 23926
+          },
+          {
+            "site": "ANN",
+            "externalId": 30153
+          },
+          {
+            "site": "KITSU",
+            "externalId": 48049
+          }
+        ]
+      },
+      "animethemes": [
+        {
+          "id": 12794,
+          "type": "OP",
+          "sequence": null,
+          "slug": "OP1",
+          "song": {
+            "id": 12741,
+            "title": {
+              "romaji": "Kimiiro no Kiseki",
+              "native": null
+            },
+            "performances": [
+              {
+                "as": null,
+                "artist": {
+                  "id": 262,
+                  "slug": "yui_ogura",
+                  "name": {
+                    "main": "Yui Ogura",
+                    "native": "小倉唯"
+                  }
+                }
+              }
+            ]
+          },
+          "animethemeentries": [
+            {
+              "spoiler": false,
+              "nsfw": false
+            }
+          ]
+        },
+        {
+          "id": 12878,
+          "type": "ED",
+          "sequence": null,
+          "slug": "ED1",
+          "song": {
+            "id": 12833,
+            "title": {
+              "romaji": "Sunny Canvas",
+              "native": null
+            },
+            "performances": [
+              {
+                "as": null,
+                "artist": {
+                  "id": 1453,
+                  "slug": "soundorion",
+                  "name": {
+                    "main": "SoundOrion",
+                    "native": null
+                  }
+                }
+              },
+              {
+                "as": null,
+                "artist": {
+                  "id": 1453,
+                  "slug": "soundorion",
+                  "name": {
+                    "main": "SoundOrion",
+                    "native": null
+                  }
+                }
+              }
+            ]
+          },
+          "animethemeentries": [
+            {
+              "spoiler": false,
+              "nsfw": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4259,
+      "slug": "remonster",
+      "format": "TV",
+      "year": 2024,
+      "season": "SPRING",
+      "synopsis": "After meeting an untimely death, Tomokui Kanata is reincarnated as a lowly goblin, but he’s worked up a monstrous appetite. Thanks to his new ability that allows him to grow stronger the more he feeds, his feeble status quickly changes, and he rises to become the goblin leader. With a mix of his past memories, new body, and strong stomach, he’s taking a bite out of this new fantastical world!",
+      "title": {
+        "romaji": "Re:Monster",
+        "english": null,
+        "native": null
+      },
+      "images": {
+        "nodes": [
+          {
+            "facet": "LARGE_COVER",
+            "link": "https://pub-92474f7785774e91a790e086dfa6b2ef.r2.dev/anime/large-cover/aBQll3t3b7crYJ9ho5ncmG7lpHf9VumULYvc8Lh6.png"
+          },
+          {
+            "facet": "SMALL_COVER",
+            "link": "https://pub-92474f7785774e91a790e086dfa6b2ef.r2.dev/anime/small-cover/ssJGP3zCX2QjlhjyeEa5cTQimO05fiG3XPRSZgM7.avif"
+          }
+        ]
+      },
+      "resources": {
+        "nodes": [
+          {
+            "site": "MAL",
+            "externalId": 56690
+          },
+          {
+            "site": "KITSU",
+            "externalId": 47964
+          },
+          {
+            "site": "ANILIST",
+            "externalId": 169417
+          },
+          {
+            "site": "ANIDB",
+            "externalId": 18201
+          },
+          {
+            "site": "X",
+            "externalId": null
+          },
+          {
+            "site": "OFFICIAL_SITE",
+            "externalId": null
+          },
+          {
+            "site": "CRUNCHYROLL",
+            "externalId": null
+          },
+          {
+            "site": "ANIME_PLANET",
+            "externalId": 23879
+          },
+          {
+            "site": "ANN",
+            "externalId": 29955
+          }
+        ]
+      },
+      "animethemes": [
+        {
+          "id": 12799,
+          "type": "OP",
+          "sequence": null,
+          "slug": "OP1",
+          "song": {
+            "id": 12755,
+            "title": {
+              "romaji": "Into the Fire",
+              "native": null
+            },
+            "performances": [
+              {
+                "as": null,
+                "artist": {
+                  "id": 1557,
+                  "slug": "chansung",
+                  "name": {
+                    "main": "CHANSUNG",
+                    "native": null
+                  }
+                }
+              },
+              {
+                "as": null,
+                "artist": {
+                  "id": 1558,
+                  "slug": "ak_69",
+                  "name": {
+                    "main": "AK-69",
+                    "native": null
+                  }
+                }
+              },
+              {
+                "as": null,
+                "artist": {
+                  "id": 1559,
+                  "slug": "changmin",
+                  "name": {
+                    "main": "CHANGMIN",
+                    "native": null
+                  }
+                }
+              }
+            ]
+          },
+          "animethemeentries": [
+            {
+              "spoiler": false,
+              "nsfw": false
+            }
+          ]
+        },
+        {
+          "id": 12800,
+          "type": "ED",
+          "sequence": null,
+          "slug": "ED1",
+          "song": {
+            "id": 12756,
+            "title": {
+              "romaji": "Sadame",
+              "native": null
+            },
+            "performances": [
+              {
+                "as": null,
+                "artist": {
+                  "id": 1315,
+                  "slug": "everdream",
+                  "name": {
+                    "main": "EverdreaM",
+                    "native": null
+                  }
+                }
+              }
+            ]
+          },
+          "animethemeentries": [
+            {
+              "spoiler": false,
+              "nsfw": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4262,
+      "slug": "touken_ranbu_kai_kyoden_moyuru_honnouji",
+      "format": "TV",
+      "year": 2024,
+      "season": "SPRING",
+      "synopsis": "One day, a new sword manifested at their citadel. \n\r\n\n\r\nFudou Yukimitsu: A sword worn by a commander of the Sengoku era, Oda Nobunaga, who was granted to one of his attending servants, Mori Ranmaru. Fudou Yukimitsu makes it known that he is proud to be Oda Nobunaga's beloved sword, but clashes with the other swords who also call Nobunaga their former master: Souza Samonji, Heshikiri Hasebe, and Yagen Toushirou. The appointed team captain, Yamanbagiri Kunihiro, must rally a citadel that has fallen into disarray at Fudou Yukimitsu's arrival. In the midst of all this, the saniwa has received an order to depart for the year 1582 -- the Honnouji event, where Oda Nobunaga met his demise... \n\r\n\n\r\nAnime production will be scripted and overseen by Kenichi Suemitsu, the director and playwright of the original play. \n\r\n\n\r\n(Source: AniList)",
+      "title": {
+        "romaji": "Touken Ranbu Kai: Kyoden Moyuru Honnouji",
+        "english": "TOUKEN RANBU KAI KYODEN",
+        "native": "刀剣乱舞 廻 -虚伝 燃ゆる本能寺-"
+      },
+      "images": {
+        "nodes": [
+          {
+            "facet": "LARGE_COVER",
+            "link": "https://pub-92474f7785774e91a790e086dfa6b2ef.r2.dev/anime/large-cover/Svjbib9v7RThKUlPdGXUAYzG3NxfUDmiem9dtcgz.png"
+          },
+          {
+            "facet": "SMALL_COVER",
+            "link": "https://pub-92474f7785774e91a790e086dfa6b2ef.r2.dev/anime/small-cover/BFfsY9kvF9nvH9RikDAAANwtfDN6b3fNn6uBa1rL.avif"
+          }
+        ]
+      },
+      "resources": {
+        "nodes": [
+          {
+            "site": "MAL",
+            "externalId": 51859
+          },
+          {
+            "site": "KITSU",
+            "externalId": 46142
+          },
+          {
+            "site": "ANILIST",
+            "externalId": 150085
+          },
+          {
+            "site": "ANIDB",
+            "externalId": 18408
+          },
+          {
+            "site": "X",
+            "externalId": null
+          },
+          {
+            "site": "OFFICIAL_SITE",
+            "externalId": null
+          },
+          {
+            "site": "ANIME_PLANET",
+            "externalId": 19833
+          },
+          {
+            "site": "ANN",
+            "externalId": 31517
+          }
+        ]
+      },
+      "animethemes": [
+        {
+          "id": 12809,
+          "type": "OP",
+          "sequence": null,
+          "slug": "OP1",
+          "song": {
+            "id": 12766,
+            "title": {
+              "romaji": "Whatever Happens",
+              "native": null
+            },
+            "performances": [
+              {
+                "as": null,
+                "artist": {
+                  "id": 1562,
+                  "slug": "ini",
+                  "name": {
+                    "main": "INI",
+                    "native": null
+                  }
+                }
+              }
+            ]
+          },
+          "animethemeentries": [
+            {
+              "spoiler": false,
+              "nsfw": false
+            }
+          ]
+        },
+        {
+          "id": 12810,
+          "type": "ED",
+          "sequence": null,
+          "slug": "ED1",
+          "song": {
+            "id": 12767,
+            "title": {
+              "romaji": "DAYBREAK",
+              "native": null
+            },
+            "performances": [
+              {
+                "as": "Tsurumaru Kuninaga & Namazuo Toushirou",
+                "artist": {
+                  "id": 405,
+                  "slug": "souma_saitou",
+                  "name": {
+                    "main": "Souma Saitou",
+                    "native": null
+                  }
+                }
+              },
+              {
+                "as": "Shokudaikiri Mitsutada & Kousetsu Samonji",
+                "artist": {
+                  "id": 588,
+                  "slug": "takuya_satou",
+                  "name": {
+                    "main": "Takuya Satou",
+                    "native": null
+                  }
+                }
+              },
+              {
+                "as": "Heshikiri Hasebe",
+                "artist": {
+                  "id": 963,
+                  "slug": "tarusuke_shingaki",
+                  "name": {
+                    "main": "Tarusuke Shingaki",
+                    "native": null
+                  }
+                }
+              },
+              {
+                "as": "Sayo Samonji",
+                "artist": {
+                  "id": 1025,
+                  "slug": "ayumu_murase",
+                  "name": {
+                    "main": "Ayumu Murase",
+                    "native": null
+                  }
+                }
+              },
+              {
+                "as": "Kunihiro Yamanbagiri",
+                "artist": {
+                  "id": 1289,
+                  "slug": "tomoaki_maeno",
+                  "name": {
+                    "main": "Tomoaki Maeno",
+                    "native": null
+                  }
+                }
+              },
+              {
+                "as": "Mikazuki Munechika",
+                "artist": {
+                  "id": 1291,
+                  "slug": "kousuke_toriumi",
+                  "name": {
+                    "main": "Kousuke Toriumi",
+                    "native": null
+                  }
+                }
+              },
+              {
+                "as": "Ichigo Hitofuri",
+                "artist": {
+                  "id": 1563,
+                  "slug": "atsushi_tamaru",
+                  "name": {
+                    "main": "Atsushi Tamaru",
+                    "native": null
+                  }
+                }
+              },
+              {
+                "as": "Yagen Toushirou",
+                "artist": {
+                  "id": 1564,
+                  "slug": "seiichirou_yamashita",
+                  "name": {
+                    "main": "Seiichirou Yamashita",
+                    "native": null
+                  }
+                }
+              },
+              {
+                "as": "Souza Samonji",
+                "artist": {
+                  "id": 1565,
+                  "slug": "yuuki_tai",
+                  "name": {
+                    "main": "Yuuki Tai",
+                    "native": null
+                  }
+                }
+              },
+              {
+                "as": "Fudou Yukimitsu",
+                "artist": {
+                  "id": 1567,
+                  "slug": "daisuke_sakaguchi",
+                  "name": {
+                    "main": "Daisuke Sakaguchi",
+                    "native": null
+                  }
+                }
+              }
+            ]
+          },
+          "animethemeentries": [
+            {
+              "spoiler": false,
+              "nsfw": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4271,
+      "slug": "tensei_shitara_slime_datta_ken_3rd_season",
+      "format": "TV",
+      "year": 2024,
+      "season": "SPRING",
+      "synopsis": "The third season of Tensei Shitara Slime Datta Ken.\n\r\n\n\r\nRimuru has officially become a Demon Lord after defeating Clayman. Following Walpurgis, the Demon Lords' banquet, Rimuru's domain is expanded to include the entire Great Forest of Jura. Anticipating a flood of representatives from all races showing up to pay their respects, Rimuru decides to throw a festival to commemorate the opening of Tempest, using it as an opportunity to gain new citizens and present Demon Lord Rimuru to the world. Meanwhile, in the Holy Empire of Lubelius, home base of the monster-hating cult of Luminism, Holy Knight Captain Hinata receives a message from Rimuru. But the message is actually a fabricated declaration of war sent by some unknown party. Upon learning that Hinata is heading for Tempest, Rimuru makes a decision... Thus begins a new challenge for Rimuru, striving to distinguish friend from foe in his pursuit of the ideal nation where humans and monsters can prosper together.",
+      "title": {
+        "romaji": "Tensei shitara Slime Datta Ken 3rd Season",
+        "english": "That Time I Got Reincarnated as a Slime Season 3",
+        "native": "転生したらスライムだった件 第3期"
+      },
+      "images": {
+        "nodes": [
+          {
+            "facet": "LARGE_COVER",
+            "link": "https://pub-92474f7785774e91a790e086dfa6b2ef.r2.dev/anime/large-cover/10BWyA1mfwXvq0Ge9dhvi9Wa0tte2ntzjpEYzMIK.jpg"
+          },
+          {
+            "facet": "SMALL_COVER",
+            "link": "https://pub-92474f7785774e91a790e086dfa6b2ef.r2.dev/anime/small-cover/RxjBd0vJQNrCWnQqdRDvfYcI5bMTWBuCL4QsEXg1.avif"
+          }
+        ]
+      },
+      "resources": {
+        "nodes": [
+          {
+            "site": "MAL",
+            "externalId": 53580
+          },
+          {
+            "site": "KITSU",
+            "externalId": 46729
+          },
+          {
+            "site": "ANILIST",
+            "externalId": 156822
+          },
+          {
+            "site": "ANIDB",
+            "externalId": 17709
+          },
+          {
+            "site": "OFFICIAL_SITE",
+            "externalId": null
+          },
+          {
+            "site": "X",
+            "externalId": null
+          },
+          {
+            "site": "CRUNCHYROLL",
+            "externalId": null
+          },
+          {
+            "site": "ANIME_PLANET",
+            "externalId": 22072
+          },
+          {
+            "site": "ANN",
+            "externalId": 26553
+          }
+        ]
+      },
+      "animethemes": [
+        {
+          "id": 12824,
+          "type": "OP",
+          "sequence": 1,
+          "slug": "OP1",
+          "song": {
+            "id": 12781,
+            "title": {
+              "romaji": "PEACEKEEPER",
+              "native": null
+            },
+            "performances": [
+              {
+                "as": null,
+                "artist": {
+                  "id": 228,
+                  "slug": "stereo_dive_foundation",
+                  "name": {
+                    "main": "STEREO DIVE FOUNDATION",
+                    "native": null
+                  }
+                }
+              }
+            ]
+          },
+          "animethemeentries": [
+            {
+              "spoiler": false,
+              "nsfw": false
+            }
+          ]
+        },
+        {
+          "id": 12825,
+          "type": "ED",
+          "sequence": 1,
+          "slug": "ED1",
+          "song": {
+            "id": 12782,
+            "title": {
+              "romaji": "Believer",
+              "native": null
+            },
+            "performances": [
+              {
+                "as": null,
+                "artist": {
+                  "id": 1327,
+                  "slug": "rin_kurusu",
+                  "name": {
+                    "main": "Rin Kurusu",
+                    "native": null
+                  }
+                }
+              }
+            ]
+          },
+          "animethemeentries": [
+            {
+              "spoiler": false,
+              "nsfw": false
+            },
+            {
+              "spoiler": true,
+              "nsfw": false
+            }
+          ]
+        },
+        {
+          "id": 12955,
+          "type": "OP",
+          "sequence": 2,
+          "slug": "OP2",
+          "song": {
+            "id": 12904,
+            "title": {
+              "romaji": "Renasale Serenade",
+              "native": null
+            },
+            "performances": [
+              {
+                "as": null,
+                "artist": {
+                  "id": 171,
+                  "slug": "momoiro_clover_z",
+                  "name": {
+                    "main": "Momoiro Clover Z",
+                    "native": null
+                  }
+                }
+              }
+            ]
+          },
+          "animethemeentries": [
+            {
+              "spoiler": false,
+              "nsfw": false
+            }
+          ]
+        },
+        {
+          "id": 12956,
+          "type": "ED",
+          "sequence": 2,
+          "slug": "ED2",
+          "song": {
+            "id": 12905,
+            "title": {
+              "romaji": "Miracle soup",
+              "native": null
+            },
+            "performances": [
+              {
+                "as": null,
+                "artist": {
+                  "id": 370,
+                  "slug": "minda_ryn",
+                  "name": {
+                    "main": "MindaRyn",
+                    "native": null
+                  }
+                }
+              }
+            ]
+          },
+          "animethemeentries": [
+            {
+              "spoiler": false,
+              "nsfw": false
+            }
+          ]
+        },
+        {
+          "id": 13168,
+          "type": "ED",
+          "sequence": 3,
+          "slug": "ED3",
+          "song": {
+            "id": 12781,
+            "title": {
+              "romaji": "PEACEKEEPER",
+              "native": null
+            },
+            "performances": [
+              {
+                "as": null,
+                "artist": {
+                  "id": 228,
+                  "slug": "stereo_dive_foundation",
+                  "name": {
+                    "main": "STEREO DIVE FOUNDATION",
+                    "native": null
+                  }
+                }
+              }
+            ]
+          },
+          "animethemeentries": [
+            {
+              "spoiler": false,
+              "nsfw": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4274,
+      "slug": "the_fable",
+      "format": "TV",
+      "year": 2024,
+      "season": "SPRING",
+      "synopsis": "When you're the infamous prodigy hitman known only as “Fable,” many things come easy. Being a normal person, however, isn't one of them. In fact, being told that he can't kill anyone for a while may just be the hardest job Fable’s ever taken...",
+      "title": {
+        "romaji": "The Fable",
+        "english": null,
+        "native": null
+      },
+      "images": {
+        "nodes": [
+          {
+            "facet": "LARGE_COVER",
+            "link": "https://pub-92474f7785774e91a790e086dfa6b2ef.r2.dev/anime/large-cover/jkjZowyQNIwn1NFqToKoT1YrHXWfqef81TVRS7Zz.jpg"
+          },
+          {
+            "facet": "SMALL_COVER",
+            "link": "https://pub-92474f7785774e91a790e086dfa6b2ef.r2.dev/anime/small-cover/jRD94fg4bEfA0yCtCPUkwAlN6IABKn0Nuy8hmrCC.avif"
+          }
+        ]
+      },
+      "resources": {
+        "nodes": [
+          {
+            "site": "MAL",
+            "externalId": 55911
+          },
+          {
+            "site": "KITSU",
+            "externalId": 47740
+          },
+          {
+            "site": "ANILIST",
+            "externalId": 166910
+          },
+          {
+            "site": "ANIDB",
+            "externalId": 18108
+          },
+          {
+            "site": "OFFICIAL_SITE",
+            "externalId": null
+          },
+          {
+            "site": "X",
+            "externalId": null
+          },
+          {
+            "site": "DISNEY_PLUS",
+            "externalId": null
+          },
+          {
+            "site": "HULU",
+            "externalId": null
+          },
+          {
+            "site": "ANIME_PLANET",
+            "externalId": 23699
+          },
+          {
+            "site": "ANN",
+            "externalId": 28984
+          }
+        ]
+      },
+      "animethemes": [
+        {
+          "id": 12830,
+          "type": "OP",
+          "sequence": 1,
+          "slug": "OP1",
+          "song": {
+            "id": 12787,
+            "title": {
+              "romaji": "Professionalism feat. Hannya",
+              "native": null
+            },
+            "performances": [
+              {
+                "as": null,
+                "artist": {
+                  "id": 916,
+                  "slug": "ali",
+                  "name": {
+                    "main": "ALI",
+                    "native": null
+                  }
+                }
+              },
+              {
+                "as": null,
+                "artist": {
+                  "id": 1583,
+                  "slug": "hannya",
+                  "name": {
+                    "main": "Hannya",
+                    "native": null
+                  }
+                }
+              }
+            ]
+          },
+          "animethemeentries": [
+            {
+              "spoiler": false,
+              "nsfw": false
+            }
+          ]
+        },
+        {
+          "id": 12831,
+          "type": "ED",
+          "sequence": 1,
+          "slug": "ED1",
+          "song": {
+            "id": 12788,
+            "title": {
+              "romaji": "Odd Numbers",
+              "native": null
+            },
+            "performances": [
+              {
+                "as": null,
+                "artist": {
+                  "id": 1584,
+                  "slug": "umeda_cypher",
+                  "name": {
+                    "main": "Umeda Cypher",
+                    "native": null
+                  }
+                }
+              }
+            ]
+          },
+          "animethemeentries": [
+            {
+              "spoiler": false,
+              "nsfw": false
+            }
+          ]
+        },
+        {
+          "id": 13056,
+          "type": "OP",
+          "sequence": 2,
+          "slug": "OP2",
+          "song": {
+            "id": 13005,
+            "title": {
+              "romaji": "Switch",
+              "native": null
+            },
+            "performances": [
+              {
+                "as": null,
+                "artist": {
+                  "id": 1584,
+                  "slug": "umeda_cypher",
+                  "name": {
+                    "main": "Umeda Cypher",
+                    "native": null
+                  }
+                }
+              }
+            ]
+          },
+          "animethemeentries": [
+            {
+              "spoiler": false,
+              "nsfw": false
+            }
+          ]
+        },
+        {
+          "id": 13057,
+          "type": "ED",
+          "sequence": 2,
+          "slug": "ED2",
+          "song": {
+            "id": 13006,
+            "title": {
+              "romaji": "BEYOND feat. MaRI",
+              "native": null
+            },
+            "performances": [
+              {
+                "as": null,
+                "artist": {
+                  "id": 916,
+                  "slug": "ali",
+                  "name": {
+                    "main": "ALI",
+                    "native": null
+                  }
+                }
+              },
+              {
+                "as": null,
+                "artist": {
+                  "id": 1684,
+                  "slug": "mari",
+                  "name": {
+                    "main": "MaRI",
+                    "native": null
+                  }
+                }
+              }
+            ]
+          },
+          "animethemeentries": [
+            {
+              "spoiler": false,
+              "nsfw": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

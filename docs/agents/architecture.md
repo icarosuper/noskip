@@ -11,6 +11,7 @@
 scripts/import/          → AnimeThemes importer (bun script, not part of the app bundle)
   animethemes-client.ts  → GraphQL client: pagination, rate limit, retries
   animethemes.ts         → CLI entry: upserts anime → song → artist → song_artist → theme
+  fixtures/              → a recorded real API page (contract test); record-sample.ts refreshes it
 src/
   db/
     index.ts             → Drizzle client (node-postgres); throws if DATABASE_URL is missing

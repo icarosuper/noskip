@@ -5,7 +5,8 @@ import { ANIME_SLUG, buildFixtureCatalog, THEME } from '../../tests/fixtures/cat
 import { seedUsers } from '../../tests/fixtures/seed'
 import { FIXTURE_USERS } from '../../tests/fixtures/users'
 import { setupTestDatabase } from '../../tests/support/integration'
-import type { UpstreamAnime } from './animethemes-client'
+import { parseAnimePage, type UpstreamAnime } from './animethemes-client'
+import recordedPage from './fixtures/anime-page.sample.json'
 import { upsertAnime } from './upsert'
 
 const database = setupTestDatabase()
@@ -127,5 +128,23 @@ describe('upsertAnime', () => {
       where: eq(theme.animethemesId, THEME.kitchenEd1),
     })
     expect(kitchenEd).toMatchObject({ type: 'ED', songId: null })
+  })
+})
+
+describe('upsertAnime over a recorded AnimeThemes page', () => {
+  it('imports every anime and theme of the page, twice without duplicates', async () => {
+    const animePage = parseAnimePage(structuredClone(recordedPage))
+    const expectedThemeCount = animePage.data.reduce(
+      (total, upstream) => total + upstream.animethemes.length,
+      0,
+    )
+
+    for (const upstream of animePage.data) await upsertAnime(database, upstream)
+    for (const upstream of animePage.data) await upsertAnime(database, upstream)
+
+    const rowCounts = await countRows()
+    expect(rowCounts.animeCount).toBe(animePage.data.length)
+    expect(rowCounts.themeCount).toBe(expectedThemeCount)
+    expect(rowCounts.artistCount).toBeGreaterThan(0)
   })
 })
