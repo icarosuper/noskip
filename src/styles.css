@@ -1,0 +1,169 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/space-grotesk';
+
+/* Theme "Stage" (decisions.md #10). Dark by default; light when the user picks it (data-theme on
+   <html>, set by the theme toggle) or, with no choice saved, when the OS prefers light.
+   Components use these through the Tailwind colors below (bg-surface, text-muted, text-accent…),
+   never raw hex. A new theme = one more block of these variables. */
+:root {
+  color-scheme: dark;
+  --bg: #0d0e12;
+  --surface: #17181f;
+  --surface-2: #20222b;
+  --line: #2b2d36;
+  --text: #f2f2f5;
+  --muted: #9a9ca8;
+  --accent: #ff4f8b;
+  /* Dark text: white on the pink is under 3:1. */
+  --accent-contrast: #0d0e12;
+  /* Accent for small text on dark surfaces — the base pink is fine for big text and fills. */
+  --accent-text: #ff8db3;
+  --accent-soft: rgb(255 79 139 / 0.14);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f5f5f8;
+  --surface: #ffffff;
+  --surface-2: #ececf1;
+  --line: #dfe0e6;
+  --text: #15161c;
+  --muted: #5b5e6a;
+  --accent: #c41c58;
+  --accent-contrast: #ffffff;
+  --accent-text: #b0164e;
+  --accent-soft: rgb(196 28 88 / 0.1);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+    --bg: #f5f5f8;
+    --surface: #ffffff;
+    --surface-2: #ececf1;
+    --line: #dfe0e6;
+    --text: #15161c;
+    --muted: #5b5e6a;
+    --accent: #c41c58;
+    --accent-contrast: #ffffff;
+    --accent-text: #b0164e;
+    --accent-soft: rgb(196 28 88 / 0.1);
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-contrast: var(--accent-contrast);
+  --color-accent-text: var(--accent-text);
+  --color-accent-soft: var(--accent-soft);
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Space Grotesk Variable', 'Inter Variable', ui-sans-serif, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* The theme toggle shows a sun in dark mode and a moon in light mode. Decided by CSS, so the
+   server and the client render the same markup. */
+.when-light {
+  display: none;
+}
+:root[data-theme='light'] .when-light {
+  display: inline;
+}
+:root[data-theme='light'] .when-dark {
+  display: none;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .when-light {
+    display: inline;
+  }
+  :root:not([data-theme]) .when-dark {
+    display: none;
+  }
+}
+
+/* List/grid per screen (src/components/view-preference.ts). Inside [data-view-scope="X"], elements
+   marked .view-list-only / .view-grid-only are hidden unless they match the saved choice
+   (<html data-view-X>) or, with none saved, the screen size (list on phones, grid from 64rem). */
+html[data-view-rankings='list'] [data-view-scope='rankings'] .view-grid-only,
+html[data-view-rankings='grid'] [data-view-scope='rankings'] .view-list-only {
+  display: none;
+}
+@media (min-width: 64rem) {
+  html:not([data-view-rankings]) [data-view-scope='rankings'] .view-list-only {
+    display: none;
+  }
+}
+@media (max-width: 63.999rem) {
+  html:not([data-view-rankings]) [data-view-scope='rankings'] .view-grid-only {
+    display: none;
+  }
+}
+html[data-view-season='list'] [data-view-scope='season'] .view-grid-only,
+html[data-view-season='grid'] [data-view-scope='season'] .view-list-only {
+  display: none;
+}
+@media (min-width: 64rem) {
+  html:not([data-view-season]) [data-view-scope='season'] .view-list-only {
+    display: none;
+  }
+}
+@media (max-width: 63.999rem) {
+  html:not([data-view-season]) [data-view-scope='season'] .view-grid-only {
+    display: none;
+  }
+}
+html[data-view-artist='list'] [data-view-scope='artist'] .view-grid-only,
+html[data-view-artist='grid'] [data-view-scope='artist'] .view-list-only {
+  display: none;
+}
+@media (min-width: 64rem) {
+  html:not([data-view-artist]) [data-view-scope='artist'] .view-list-only {
+    display: none;
+  }
+}
+@media (max-width: 63.999rem) {
+  html:not([data-view-artist]) [data-view-scope='artist'] .view-grid-only {
+    display: none;
+  }
+}
+html[data-view-profile='list'] [data-view-scope='profile'] .view-grid-only,
+html[data-view-profile='grid'] [data-view-scope='profile'] .view-list-only {
+  display: none;
+}
+@media (min-width: 64rem) {
+  html:not([data-view-profile]) [data-view-scope='profile'] .view-list-only {
+    display: none;
+  }
+}
+@media (max-width: 63.999rem) {
+  html:not([data-view-profile]) [data-view-scope='profile'] .view-grid-only {
+    display: none;
+  }
+}
+html[data-view-home='list'] [data-view-scope='home'] .view-grid-only,
+html[data-view-home='grid'] [data-view-scope='home'] .view-list-only {
+  display: none;
+}
+@media (min-width: 64rem) {
+  html:not([data-view-home]) [data-view-scope='home'] .view-list-only {
+    display: none;
+  }
+}
+@media (max-width: 63.999rem) {
+  html:not([data-view-home]) [data-view-scope='home'] .view-grid-only {
+    display: none;
+  }
+}
