@@ -4,7 +4,12 @@ import { Avatar } from '#/components/Avatar'
 import { Cover } from '#/components/Cover'
 import { sectionTitleClass } from '#/components/ui'
 import { useSensitiveTheme } from '#/features/catalog/components/useSensitiveTheme'
-import { animeThemesWatchUrl, SEASON_LABELS, THEME_TYPE_SINGULAR } from '#/features/catalog/constants'
+import {
+  animeThemesWatchUrl,
+  formatVoteCount,
+  SEASON_LABELS,
+  THEME_TYPE_SINGULAR,
+} from '#/features/catalog/constants'
 import type { findThemeDetail } from '#/features/catalog/queries'
 import { getThemeDetail } from '#/features/catalog/server'
 import { FavoriteButton } from '#/features/ratings/components/FavoriteButton'
@@ -54,9 +59,7 @@ function StatCards({ detail }: { detail: ThemeDetail }) {
         <p className="font-display text-3xl font-bold">
           {stats.averageScore === null ? '—' : stats.averageScore.toFixed(1)}
         </p>
-        <p className="text-[11px] text-muted">
-          {stats.voteCount} {stats.voteCount === 1 ? 'vote' : 'votes'}
-        </p>
+        <p className="text-[11px] text-muted">{formatVoteCount(stats.voteCount)}</p>
       </div>
       {viewer && (
         <FavoriteButton

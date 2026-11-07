@@ -31,6 +31,11 @@ export const THEME_TYPE_SINGULAR: Record<ThemeType, string> = {
 
 export const SCORES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const
 
+export function formatVoteCount(voteCount: number) {
+  const noun = voteCount === 1 ? 'vote' : 'votes'
+  return `${voteCount} ${noun}`
+}
+
 // Anime seasons by month: Jan–Mar winter, Apr–Jun spring, Jul–Sep summer, Oct–Dec fall.
 export function currentSeason(today = new Date()): { year: number; season: Season } {
   const seasonIndex = Math.floor(today.getMonth() / 3)

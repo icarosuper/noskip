@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { animeThemesWatchUrl, currentSeason } from './constants'
+import { animeThemesWatchUrl, currentSeason, formatVoteCount } from './constants'
 
 describe('currentSeason', () => {
   it.each([
@@ -20,5 +20,15 @@ describe('currentSeason', () => {
 describe('animeThemesWatchUrl', () => {
   it('builds the AnimeThemes page of a theme', () => {
     expect(animeThemesWatchUrl('iron_petals', 'OP2')).toBe('https://animethemes.moe/anime/iron_petals/OP2')
+  })
+})
+
+describe('formatVoteCount', () => {
+  it.each([
+    [0, '0 votes'],
+    [1, '1 vote'],
+    [2, '2 votes'],
+  ])('%i → %s', (voteCount, expectedLabel) => {
+    expect(formatVoteCount(voteCount)).toBe(expectedLabel)
   })
 })

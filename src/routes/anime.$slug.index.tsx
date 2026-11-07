@@ -5,7 +5,7 @@ import { Cover } from '#/components/Cover'
 import { EmptyState } from '#/components/EmptyState'
 import { sectionTitleClass } from '#/components/ui'
 import { ThemeRow } from '#/features/catalog/components/ThemeItems'
-import { SEASON_LABELS, THEME_TYPE_LABELS } from '#/features/catalog/constants'
+import { formatVoteCount, SEASON_LABELS, THEME_TYPE_LABELS } from '#/features/catalog/constants'
 import { getAnimeDetail } from '#/features/catalog/server'
 import { ScorePicker } from '#/features/ratings/components/ScorePicker'
 import { cn } from '#/lib/cn'
@@ -40,7 +40,7 @@ function ThemeWithQuickRate({ theme, isSignedIn }: { theme: AnimeTheme; isSigned
               <span className="font-display text-base font-bold">
                 {theme.averageScore === null ? '—' : theme.averageScore.toFixed(1)}
               </span>
-              <span className="text-[11px] text-muted">{theme.voteCount} votes</span>
+              <span className="text-[11px] text-muted">{formatVoteCount(theme.voteCount)}</span>
             </div>
             {isSignedIn && (
               <button

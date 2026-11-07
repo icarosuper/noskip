@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router'
 import { Cover } from '#/components/Cover'
 import { EmptyState } from '#/components/EmptyState'
 import { cn } from '#/lib/cn'
+import { formatVoteCount } from '../constants'
 import type { ThemeSummary } from '../theme-summary'
 import { useSensitiveTheme } from './useSensitiveTheme'
 
@@ -226,9 +227,7 @@ export function ScoreAside({
   return (
     <div className={view === 'grid' ? 'flex items-baseline gap-1.5' : 'flex flex-col items-end'}>
       <span className="font-display text-lg font-bold">{score === null ? '—' : score.toFixed(1)}</span>
-      <span className="text-[11px] text-muted">
-        {voteCount} {voteCount === 1 ? 'vote' : 'votes'}
-      </span>
+      <span className="text-[11px] text-muted">{formatVoteCount(voteCount)}</span>
     </div>
   )
 }
