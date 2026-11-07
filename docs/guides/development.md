@@ -45,8 +45,17 @@ In production, add the same callback paths on the production domain.
 ```bash
 bun run import:animethemes --year 2025 --season FALL   # one season
 bun run import:animethemes --year 2025                 # one year
+bun run import:animethemes --current-season            # the season airing now
 bun run import:animethemes --all                       # whole catalog (a few minutes)
 ```
+
+Every page is validated against the importer's zod schema before anything is written; a shape
+change upstream stops the import with the field's path. `bun scripts/import/record-sample.ts`
+re-records the sample page the contract test uses (one API request).
+
+In production the import runs from `.github/workflows/sync-catalog.yml` (daily current season,
+weekly everything), off until the `CATALOG_SYNC_ENABLED` variable and `CATALOG_DATABASE_URL`
+secret are set in the repository.
 
 Re-running is safe (upsert by `animethemes_id`). Respect the API limits in
 [data-sources.md](../agents/data-sources.md) — don't run several imports in parallel.

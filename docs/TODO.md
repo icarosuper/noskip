@@ -26,9 +26,11 @@ ratings and stats → all-time, year and season rankings (bayesian) → "Watch o
 - **Ask AnimeThemes (#api on Discord)** the three open questions in
   [data-sources.md](agents/data-sources.md#open-questions--ask-in-the-api-channel-of-their-discord).
 - **Import the full catalog** (`--all`) and check the import time and row counts.
-- **Scheduled sync**: re-import the current season daily, the rest weekly. The importer CLI runs
-  from an outside scheduler (GitHub Actions cron against `DATABASE_URL` works with any host), never
-  from inside the app ([decisions.md #13](agents/decisions.md#13-the-app-runs-on-any-node-host-jobs-run-outside-it)).
+- **Turn on the scheduled sync** once production exists: `.github/workflows/sync-catalog.yml` is
+  written (daily current season, weekly `--all`) but skipped until the repository has the
+  `CATALOG_DATABASE_URL` secret and the `CATALOG_SYNC_ENABLED=true` variable. Run the full import
+  by hand first (item above). A failed run only shows in the Actions tab: turn on GitHub's email
+  notification for failed workflows.
 - **Serve covers from our own cache.** Covers load ~270 ms each from AnimeThemes' `*.r2.dev`
   bucket (rate-limited dev URL, ~220 ms to first byte, no `Cache-Control`). Options: an image proxy
   with long cache headers behind a CDN, or copying covers at import time to our storage; either

@@ -16,6 +16,11 @@ bulk downloads).
 - **What we take:** anime (titles, format, year, season, synopsis, cover URLs, AniList/MAL ids),
   themes (type `OP|ED|IN`, sequence, slug), songs, artists (+ credited name).
 - **Full import size:** a whole season is ~3 requests; the whole catalog is a few hundred.
+- **Scheduled sync** (`.github/workflows/sync-catalog.yml`, off until production): current season
+  daily (~3 requests), whole catalog weekly. One run at a time.
+- **Contract:** `scripts/import/fixtures/anime-page.sample.json` is a recorded page (Spring 2024,
+  five anime, recorded 2026-11-07); `animethemes-contract.test.ts` checks it against the schema the
+  client validates every page with.
 
 ### Terms (animethemes.moe/about/terms-of-service, /about/faq)
 

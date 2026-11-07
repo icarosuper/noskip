@@ -45,8 +45,10 @@ page loads through route loaders, and mutations refresh with `router.invalidate(
 
 1. **Import (offline).** `bun run import:animethemes` pages through
    `graphql.animethemes.moe` (`animePagination`, 25 anime per page, themes/songs/artists nested in
-   the same query) and upserts every row keyed by `animethemes_id`. Limits and terms:
-   [data-sources.md](data-sources.md).
+   the same query), validates each page with a zod schema (`parseAnimePage`; a shape change stops
+   the import) and upserts every row keyed by `animethemes_id`. Limits and terms:
+   [data-sources.md](data-sources.md). In production it runs from
+   `.github/workflows/sync-catalog.yml`, never from the app.
 2. **Read.** Route loaders call server functions in `features/*/server.ts`, which query Postgres
    with Drizzle.
 3. **Write.** Components call POST server functions (`rateTheme`, `saveReview`, `favoriteTheme`,

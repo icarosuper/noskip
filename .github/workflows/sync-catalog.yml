@@ -1,0 +1,55 @@
+# Keeps the catalog in step with AnimeThemes (decisions.md #13: jobs run outside the app, so this
+# works with any host). Daily: the season airing now. Weekly (Monday): the whole catalog.
+#
+# OFF until production exists. To turn it on:
+#   1. Repository secret  CATALOG_DATABASE_URL  = the production DATABASE_URL.
+#   2. Repository variable CATALOG_SYNC_ENABLED = true.
+# Until then every scheduled run is skipped. "Run workflow" in the Actions tab runs it on demand
+# once it is enabled.
+name: Sync catalog
+
+on:
+  schedule:
+    - cron: '17 6 * * *' # daily, current season
+    - cron: '43 7 * * 1' # Mondays, full catalog
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: What to import
+        type: choice
+        options: [current-season, all]
+        default: current-season
+
+# Never two imports at once: AnimeThemes allows 90 requests/minute in total (data-sources.md).
+concurrency:
+  group: sync-catalog
+  cancel-in-progress: false
+
+jobs:
+  import:
+    if: vars.CATALOG_SYNC_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v5
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.4
+      - run: bun install --frozen-lockfile
+
+      - name: Pick the scope
+        id: scope
+        env:
+          SCHEDULE: ${{ github.event.schedule }}
+          MANUAL_SCOPE: ${{ inputs.scope }}
+        run: |
+          if [ "$SCHEDULE" = '43 7 * * 1' ] || [ "$MANUAL_SCOPE" = 'all' ]; then
+            echo "flag=--all" >> "$GITHUB_OUTPUT"
+          else
+            echo "flag=--current-season" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Import from AnimeThemes
+        env:
+          DATABASE_URL: ${{ secrets.CATALOG_DATABASE_URL }}
+        run: bun scripts/import/animethemes.ts ${{ steps.scope.outputs.flag }}

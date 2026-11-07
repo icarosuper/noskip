@@ -17,7 +17,7 @@ Our own data is users and what they create (ratings, reviews, top 10s, follows, 
 ```bash
 bun run db:up                                    # Postgres in Docker (docker-compose.yml)
 bun run db:migrate                               # apply migrations in drizzle/
-bun run import:animethemes --year 2025 --season FALL   # fill the catalog (or --year / --all)
+bun run import:animethemes --year 2025 --season FALL   # fill the catalog (or --year / --current-season / --all)
 bun run db:seed-demo                             # made-up users/ratings over the imported catalog
 bun run dev                                      # http://localhost:3000
 bun run build

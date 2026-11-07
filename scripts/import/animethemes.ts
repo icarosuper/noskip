@@ -2,6 +2,7 @@
 //
 //   bun run import:animethemes --year 2025 --season FALL   # one season
 //   bun run import:animethemes --year 2025                 # one year
+//   bun run import:animethemes --current-season            # the season airing now (daily sync)
 //   bun run import:animethemes --all                       # everything (a few hundred requests)
 //
 // Safe to re-run: every row is keyed by `animethemes_id`. Rows that disappear upstream are NOT
