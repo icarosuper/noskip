@@ -26,16 +26,23 @@ ratings and stats → all-time, year and season rankings (bayesian) → "Watch o
 - **Ask AnimeThemes (#api on Discord)** the three open questions in
   [data-sources.md](agents/data-sources.md#open-questions--ask-in-the-api-channel-of-their-discord).
 - **Import the full catalog** (`--all`) and check the import time and row counts.
-- **Scheduled sync**: re-import the current season daily, the rest weekly. Where it runs depends on
-  the deploy choice (cron on a VPS, Vercel Cron, GitHub Actions…).
+- **Scheduled sync**: re-import the current season daily, the rest weekly. The importer CLI runs
+  from an outside scheduler (GitHub Actions cron against `DATABASE_URL` works with any host), never
+  from inside the app ([decisions.md #13](agents/decisions.md#13-the-app-runs-on-any-node-host-jobs-run-outside-it)).
 - **Serve covers from our own cache.** Covers load ~270 ms each from AnimeThemes' `*.r2.dev`
   bucket (rate-limited dev URL, ~220 ms to first byte, no `Cache-Control`). Options: an image proxy
   with long cache headers behind a CDN, or copying covers at import time to our storage; either
-  way, resized variants for list (small) and grid (large). Decide with the deploy target, and only
-  after AnimeThemes answers the cover question in
+  way, resized variants for list (small) and grid (large). Storage goes through the S3 API
+  ([decisions.md #13](agents/decisions.md#13-the-app-runs-on-any-node-host-jobs-run-outside-it)).
+  Wait until AnimeThemes answers the cover question in
   [data-sources.md](agents/data-sources.md#open-questions--ask-in-the-api-channel-of-their-discord).
   Quick wins already in (`priority` covers, `preconnect`, neutral placeholder).
-- **Choose the deploy target** (Vercel / Netlify / Cloudflare / VPS) and a managed Postgres.
+- **Choose the host** (any Node host: Vercel / Netlify / Fly / Railway / VPS) and a managed
+  Postgres. Not blocking: the app is host-agnostic
+  ([decisions.md #13](agents/decisions.md#13-the-app-runs-on-any-node-host-jobs-run-outside-it)),
+  so CI, error tracking, logs and jobs can be built before this. The choice only sets the build
+  preset in `vite.config.ts`. Cloudflare Workers would need Hyperdrive or an HTTP driver, so it
+  would reopen #13.
 - **Decide how a theme gets its season — before the first deploy.** Today the season ranking uses
   the *anime's* season (`anime.year`/`anime.season`, its premiere). A theme that starts airing later
   lands in the wrong season and never shows up where it aired: a long-running show's new OP (One

@@ -5,7 +5,7 @@ Patterns that look wrong (or arbitrary) but are intentional. Read before "fixing
 ## Index
 
 Entries are **self-contained**: read only the one you were pointed at. Cite by **anchor**, never by
-line number. A new entry takes the **next number** (highest today is **#12**) plus one line here;
+line number. A new entry takes the **next number** (highest today is **#13**) plus one line here;
 never renumber.
 
 - [**#1** — The catalog is a local copy of AnimeThemes, upserted, never deleted](#1-the-catalog-is-a-local-copy-of-animethemes-upserted-never-deleted)
@@ -20,6 +20,7 @@ never renumber.
 - [**#10** — Theme "Stage": tokens per theme, choice saved in the browser](#10-theme-stage-tokens-per-theme-choice-saved-in-the-browser)
 - [**#11** — Spoiler and NSFW themes are blurred by default](#11-spoiler-and-nsfw-themes-are-blurred-by-default)
 - [**#12** — List/grid is saved per screen and applied by CSS](#12-listgrid-is-saved-per-screen-and-applied-by-css)
+- [**#13** — The app runs on any Node host; jobs run outside it](#13-the-app-runs-on-any-node-host-jobs-run-outside-it)
 
 ---
 
@@ -152,3 +153,29 @@ updates the attribute and storage — no React state, no re-render.
 **Don't "fix" by:** reading `localStorage` during render (hydration mismatch), choosing the view in
 a `useEffect` (visible flash), or putting the view back in the URL. A new screen with a toggle needs
 its scope in `VIEW_SCOPES` and its block of rules in `styles.css`.
+
+### 13. The app runs on any Node host; jobs run outside it
+
+Decided on 2026-11-07, before choosing a host. The portability contract is **a Node runtime +
+Postgres (`DATABASE_URL`) + S3-compatible storage**. The only host-specific code is the build
+preset (TanStack Start: Nitro preset or the Cloudflare Vite plugin in `vite.config.ts`). The rest
+follows standards every host already understands:
+
+- **Logs** are JSON on stdout. Every host collects stdout, so there is no log shipper in the app.
+- **Error tracking** uses an SDK that runs anywhere (Sentry/GlitchTip), configured by env vars.
+- **Jobs** (catalog sync, backups) are CLIs (`bun run import:animethemes`, `pg_dump`) run by an
+  outside scheduler (GitHub Actions cron, VPS cron, the host's cron). A full import takes longer
+  than a serverless function may run, and keeping it out of the app also keeps the app read-only
+  for the catalog ([#1](#1-the-catalog-is-a-local-copy-of-animethemes-upserted-never-deleted)).
+- **Covers**, once we cache them, go through a small storage interface over the S3 API (R2, S3,
+  Backblaze and MinIO all speak it). Write that interface only when the cover work starts.
+
+Why not an adapter layer per host: the hosts already differ only in these few places, and each one
+has a standard that removes the difference. Adapters written for hosts we haven't chosen would be
+guesses. The one real fork is the runtime: the app uses `drizzle-orm/node-postgres`, which needs
+TCP sockets, so Cloudflare Workers only works with `nodejs_compat` + Hyperdrive or a switch to an
+HTTP driver (Neon). If Workers is ever chosen, revisit this entry.
+
+**Don't "fix" by:** adding an HTTP endpoint that runs the import from inside the app, writing logs
+to files or a host-specific logging API, calling a host's storage SDK directly instead of the S3
+API, or adding per-host adapter interfaces before a second host actually exists.
