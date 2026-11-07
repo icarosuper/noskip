@@ -8,9 +8,11 @@ on:
     branches: [master]
   pull_request:
 
+# A new push to a pull request cancels its older run. On master every commit runs to the end, so
+# each one keeps its own result (and the README badge never shows a cancelled run as failing).
 concurrency:
   group: ci-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   static:
