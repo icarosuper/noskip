@@ -21,6 +21,10 @@ call), `server.ts` (thin `createServerFn` wrappers over them) and `components/`.
 | `/u/$username/$kind` | followers / following |
 | `/settings` | username, bio, theme, spoiler/NSFW/private toggles, sign out, delete account |
 | `/login`, `/onboarding` | provider buttons; pick a username (forced by `__root.tsx`) |
+| `/health` | not a screen: server route, 200 `{"status":"ok"}` when Postgres answers, 503 otherwise |
+
+Unknown URLs and `notFound()` render `NotFoundPage`; a thrown error renders `ErrorPage` (both in
+`RouteFallbacks.tsx`, set as router defaults in `src/router.tsx`).
 
 Shell: `src/components/AppShell.tsx` (top bar, bottom tab bar on phones, footer attribution).
 
@@ -37,6 +41,7 @@ From `lg`, the theme page and the profile are two columns.
 | `Cover.tsx` | anime cover, or a colored block with initials |
 | `ThemeToggle.tsx` | light/dark toggle, `THEME_INIT_SCRIPT`, `applyThemePreference` ([decisions.md #10](decisions.md#10-theme-stage-tokens-per-theme-choice-saved-in-the-browser)) |
 | `view-preference.ts` | `VIEW_SCOPES`, `VIEW_INIT_SCRIPT`, `saveViewPreference` |
+| `RouteFallbacks.tsx` | `NotFoundPage`, `ErrorPage` (retry + home; the message only in dev) |
 | `ViewToggle.tsx`, `Avatar.tsx`, `EmptyState.tsx`, `HydrationMarker.tsx` | small pieces |
 | `ui.ts` | class recipes: segments, chips, buttons, inputs |
 

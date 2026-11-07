@@ -20,6 +20,10 @@ bun run dev                       # http://localhost:3000
 | `BETTER_AUTH_SECRET` | `openssl rand -hex 32` |
 | `DISCORD_CLIENT_ID` / `_SECRET` | see below |
 | `GOOGLE_CLIENT_ID` / `_SECRET` | see below |
+| `LOG_LEVEL` | optional: `debug`, `info` (default), `warn`, `error` |
+
+The server logs one JSON line per request. To read them while developing:
+`bun run dev | bunx pino-pretty`. `GET /health` answers 200 when the app reaches Postgres.
 
 Without the OAuth variables the site runs (browsing, rankings), but sign-in fails; Better Auth logs
 a warning per missing provider at startup.

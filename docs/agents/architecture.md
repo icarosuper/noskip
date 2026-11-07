@@ -21,12 +21,16 @@ src/
   lib/auth-options.ts    → Better Auth config, shared by the app and the test auth
   lib/auth.ts            → Better Auth server instance
   lib/auth-client.ts     → Better Auth React client
+  lib/logger.ts          → pino logger: JSON on stdout, secrets redacted
+  start.ts               → start instance: request log + request id, CSRF, server-fn error log
+  router.tsx             → router defaults (not-found and error pages)
   components/            → app shell and shared UI pieces
   features/<feature>/    → queries.ts (Drizzle, takes `database`) + server.ts (thin server
                            functions) + components/ — vertical slices
   styles.css             → theme tokens (decisions.md #10)
   routes/                → file-based routes; thin: loader calls server functions, renders components
   routes/api/auth/$.ts   → Better Auth HTTP handler (OAuth callbacks, session endpoints)
+  routes/health.ts       → health check server route (pings Postgres)
   integrations/          → TanStack Query provider/devtools (from the scaffold)
 drizzle/                 → GENERATED SQL migrations (drizzle-kit)
 ```
@@ -47,6 +51,22 @@ page loads through route loaders, and mutations refresh with `router.invalidate(
    `followUserFn`, `saveSettings`…), then `router.invalidate()` re-runs the loaders.
 4. **Rank.** `getRanking` computes a bayesian average per theme on every request
    ([decisions.md #4](decisions.md#4-rankings-use-a-bayesian-average-computed-per-request)).
+
+## Logging
+
+`src/start.ts` registers the middleware every request goes through:
+
+- **Request log:** one JSON line per request (`requestId`, method, path, status, `durationMs`), at
+  `error` level when the status is 5xx. The id comes from an incoming `x-request-id` header or is
+  generated, and is sent back in the `x-request-id` response header.
+- **CSRF:** `createCsrfMiddleware` for server functions. TanStack Start adds it by itself only when
+  there is no `start.ts`, so it must stay in this list.
+- **Server-function errors:** logged with their stack and the function name. `notFound()` and
+  `redirect()` are not logged. Server functions run through this during SSR too.
+
+Log with `logger` from `#/lib/logger` (server code only), never `console.*`. `LOG_LEVEL` sets the
+level (`info` by default). Where logs go is the host's business
+([decisions.md #13](decisions.md#13-the-app-runs-on-any-node-host-jobs-run-outside-it)).
 
 ## Data model
 

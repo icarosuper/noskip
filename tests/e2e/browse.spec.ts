@@ -146,9 +146,16 @@ test.describe('not found', () => {
       `/anime/${ANIME_SLUG.starlight}/IN1`,
       '/artist/nobody',
       '/season/2025/monsoon',
+      '/no-such-page',
     ]) {
       await page.goto(path)
-      await expect(page.getByText('Page not found.')).toBeVisible()
+      await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible()
     }
+  })
+
+  test('the not-found page leads back home', async ({ page }) => {
+    await page.goto('/no-such-page')
+    await page.getByRole('link', { name: 'Back to home' }).click()
+    await expect(page).toHaveURL('/')
   })
 })
