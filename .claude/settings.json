@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(bun run typecheck)",
+      "Bash(bun run check)",
+      "Bash(bun run check --write)",
+      "Bash(bun run test)",
+      "Bash(bun run test:*)",
+      "Bash(bun run e2e)",
+      "Bash(bun run e2e:*)",
+      "Bash(bun run ui:screens)",
+      "Bash(bun run build)",
+      "Bash(bun run verify)",
+      "Bash(bun run db:up)",
+      "Bash(bunx biome check:*)",
+      "Bash(bunx playwright test:*)",
+      "Bash(bunx vitest run:*)",
+      "Bash(docker compose ps:*)",
+      "Bash(docker compose logs:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun \"$CLAUDE_PROJECT_DIR/.claude/hooks/format-edited-file.ts\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
