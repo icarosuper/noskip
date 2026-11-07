@@ -126,6 +126,8 @@ Read the doc **before** the task it describes.
   wrong. Start from the index; read only the entry it points to.
 - **[docs/agents/data-sources.md](docs/agents/data-sources.md)** — before touching the importer,
   adding AniList/MAL, or embedding videos. API limits and what each source's terms allow.
+- **[docs/agents/testing.md](docs/agents/testing.md)** — before writing or changing a test, or when a
+  suite fails for a reason that isn't the code under test. Suites, test databases, fixtures.
 - **[docs/TODO.md](docs/TODO.md)** — the backlog: what is left for v0 and what comes after.
 
 ## After any change

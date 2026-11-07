@@ -1,6 +1,6 @@
 // The fixture server: seeds the E2E database, then runs the app on http://localhost:3210 against
 // it. Playwright starts it through `webServer`; agents start it with `bun run e2e:server` and
-// browse it (docs/agents/browser.md). Never touches the dev database.
+// browse it (.claude/skills/review-ui/SKILL.md). Never touches the dev database.
 
 import { E2E_AUTH_SECRET, E2E_BASE_URL, E2E_DATABASE_URL, E2E_PORT } from '../../tests/support/env'
 import { prepareE2eEnvironment } from './prepare'
