@@ -1,13 +1,8 @@
 import { parseArgs } from 'node:util'
+import { currentSeason } from '#/features/catalog/constants'
 import type { AnimeFilter, Season } from './animethemes-client'
 
 const SEASONS: Season[] = ['WINTER', 'SPRING', 'SUMMER', 'FALL']
-
-// Anime seasons follow the broadcast quarters: January–March is Winter, and so on.
-export function seasonOf(date: Date): { year: number; season: Season } {
-  const quarter = Math.floor(date.getUTCMonth() / 3)
-  return { year: date.getUTCFullYear(), season: SEASONS[quarter] }
-}
 
 // `--all` → no filter; `--year` alone → one year; `--year` + `--season` → one season;
 // `--current-season` → the season `today` falls in (what the daily sync imports).
@@ -23,7 +18,7 @@ export function parseImportArgs(args: string[], today = new Date()): AnimeFilter
   })
 
   if (values.all) return {}
-  if (values['current-season']) return seasonOf(today)
+  if (values['current-season']) return currentSeason(today)
   if (!values.year) {
     throw new Error('Pass --year <yyyy> [--season WINTER|SPRING|SUMMER|FALL], --current-season or --all')
   }
