@@ -1,5 +1,6 @@
-import { eq } from 'drizzle-orm'
-import { user } from '#/db/schema'
+import { eq, sql } from 'drizzle-orm'
+import { rateLimit, user } from '#/db/schema'
+import { USER_WRITE_LIMIT } from '#/features/abuse/queries'
 import { ANIME_SLUG } from '../fixtures/catalog'
 import { FIXTURE_USERS } from '../fixtures/users'
 import { expect, signedInAs, test } from './fixtures'
@@ -33,6 +34,25 @@ test.describe('signed-in user rating themes', () => {
     await page.getByRole('button', { name: /Score 6 \(tap again to remove\)/ }).click()
     await expect(page.getByText('9.0', { exact: true })).toBeVisible()
     await expect(page.getByText('1 vote', { exact: true })).toBeVisible()
+  })
+
+  test.describe('over the write limit', () => {
+    // The refused server function answers 500, which the browser logs as a console error.
+    test.use({ allowedBrowserErrors: [/status of 500/] })
+
+    test('says why the score was not saved and keeps the old one', async ({ page, database }) => {
+      await database.insert(rateLimit).values({
+        key: `writes:${FIXTURE_USERS.alice.id}`,
+        windowStartedAt: sql`now()`,
+        hits: USER_WRITE_LIMIT.maxHits,
+      })
+      await page.goto(STARLIGHT_OP1)
+
+      await page.getByRole('button', { name: 'Score 6', exact: true }).click()
+
+      await expect(page.getByRole('alert')).toHaveText(/Too many changes in a short time/)
+      await expect(page.getByRole('button', { name: /Score 10/ })).toHaveAttribute('aria-pressed', 'true')
+    })
   })
 
   test('writes, edits and deletes a review', async ({ page }) => {

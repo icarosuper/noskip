@@ -17,9 +17,12 @@ interface ScorePickerProps {
 export function ScorePicker({ themeId, currentScore, label, onSaved }: ScorePickerProps) {
   const router = useRouter()
   const [isSaving, setIsSaving] = useState(false)
+  // Why the last pick didn't save (e.g. the write rate limit); cleared by the next pick.
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   async function pick(score: number) {
     setIsSaving(true)
+    setErrorMessage(null)
     try {
       const isClearing = score === currentScore
       if (isClearing) await removeRating({ data: { themeId } })
@@ -27,6 +30,8 @@ export function ScorePicker({ themeId, currentScore, label, onSaved }: ScorePick
       // Re-runs the loaders so averages and vote counts refresh.
       await router.invalidate()
       onSaved?.()
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : 'Something went wrong')
     } finally {
       setIsSaving(false)
     }
@@ -55,6 +60,11 @@ export function ScorePicker({ themeId, currentScore, label, onSaved }: ScorePick
           )
         })}
       </div>
+      {errorMessage && (
+        <p role="alert" className="mt-2 text-sm text-accent-text">
+          {errorMessage}
+        </p>
+      )}
     </fieldset>
   )
 }

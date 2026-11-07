@@ -61,7 +61,8 @@ ratings and stats → all-time, year and season rankings (bayesian) → "Watch o
   Catches browser and SSR errors the request log doesn't show (a component that throws in the
   browser never reaches the server). Plan: the SDK reads its DSN from an env var and stays off
   without it, so dev and tests send nothing; tag events with the `x-request-id` the server already
-  returns, so an event and its log line can be matched.
+  returns, so an event and its log line can be matched. Show that id on `ErrorPage` too, so a user
+  can quote it (decided 2026-11-07: done with Sentry, not before).
 - **Privacy policy and terms (needs: the owner's decisions on the content).** Required before real users:
   OAuth collects name, email and avatar, and Google's consent screen asks for a privacy policy URL
   in production. Decide: who is the controller and the contact email, what is stored (account,
