@@ -8,16 +8,16 @@ people to see their scores.
 
 > **Status: work in progress, not deployed yet.** The core loop works end to end (sign in → rate →
 > review → rankings), and the production basics are in: CI, logs, rate limiting, health check. The
-> open items are in [docs/TODO.md](docs/TODO.md). The screenshots below use the test fixtures
-> (fictional anime, colored placeholders instead of cover art).
+> open items are in [docs/TODO.md](docs/TODO.md). The screenshots below show the real AnimeThemes
+> catalog; the users, scores and reviews are generated demo data (`bun run db:seed-demo`).
 
 <p>
-  <img src="docs/images/theme.png" alt="Theme page: score picker, distribution, reviews" width="66%">
-  <img src="docs/images/profile-mobile.png" alt="Profile on a phone: top 10 and stats" width="30%">
+  <img src="docs/images/theme.webp" alt="Theme page for JUJUTSU KAISEN Season 2 OP2: score picker, distribution, reviews" width="66%">
+  <img src="docs/images/profile-mobile.webp" alt="Profile on a phone: top 10 and stats" width="30%">
 </p>
 <p>
-  <img src="docs/images/rankings.png" alt="All-time ranking in grid view" width="66%">
-  <img src="docs/images/anime-mobile-light.png" alt="Anime page on a phone, light theme" width="30%">
+  <img src="docs/images/rankings.webp" alt="All-time ranking in grid view" width="66%">
+  <img src="docs/images/anime-mobile-light.webp" alt="Sound! Euphonium 3 on a phone, light theme" width="30%">
 </p>
 
 ## Engineering highlights
