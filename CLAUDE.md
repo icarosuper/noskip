@@ -133,9 +133,10 @@ Read the doc **before** the task it describes.
 1. `bun run typecheck` and `bun run check`.
 2. **Update the affected docs in the same change:**
    - new/removed route, server function or component → `docs/agents/features-index.md`
-   - schema, data flow, layout or an invariant changed → `docs/agents/architecture.md`
-   - a non-obvious pattern introduced → new entry in `docs/agents/decisions.md` (next number +
-     one line in the index; never renumber)
+   - schema, data flow, layout or an invariant changed → `docs/agents/architecture.md` (a schema
+     change follows the skill `schema-change`)
+   - a non-obvious pattern introduced → new entry in `docs/agents/decisions.md` (skill
+     `record-decision`: next number + one line in the index; never renumber)
    - a new data source, or a terms/limits change → `docs/agents/data-sources.md`
    - closed or discovered work → `docs/TODO.md` (delete closed items; git keeps the history)
    - command, port or setup step changed → this file and `docs/guides/development.md`
