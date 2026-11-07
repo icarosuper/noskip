@@ -5,6 +5,10 @@ so far".
 
 ## Closed so far
 
+- 2026-11-07 — Production basics: CI (lint, types, migration drift, unit, integration, E2E,
+  build), JSON request logs with request ids, not-found and error pages, `/health`, write rate
+  limit in Postgres, ownership guard over write server functions, AnimeThemes contract test and
+  page validation, scheduled sync workflow (off), Claude Code settings with a Biome hook.
 - 2026-11-07 — Screens in the "Stage" theme (light + dark): home, rankings (all-time/year/season),
   season, anime, theme, artist, search, profile, follows, settings, login, onboarding. Reviews,
   top 10, follows, private profiles, spoiler/NSFW blur, account deletion.
@@ -53,8 +57,32 @@ ratings and stats → all-time, year and season rankings (bayesian) → "Watch o
   limitation (current choice, 2026-11-07), derive the season from the episode range and the
   anime's start date, or fetch air dates from AniList per anime. Changes the schema (a season on
   `theme`) and the importer.
-- **Abuse basics**: rate-limit the rating endpoint; decide whether new accounts' votes count
-  immediately.
+- **Error tracking (needs: create the account).** Sentry (free tier) or GlitchTip (self-hosted).
+  Catches browser and SSR errors the request log doesn't show (a component that throws in the
+  browser never reaches the server). Plan: the SDK reads its DSN from an env var and stays off
+  without it, so dev and tests send nothing; tag events with the `x-request-id` the server already
+  returns, so an event and its log line can be matched.
+- **Privacy policy and terms (needs: the owner's decisions on the content).** Required before real users:
+  OAuth collects name, email and avatar, and Google's consent screen asks for a privacy policy URL
+  in production. Decide: who is the controller and the contact email, what is stored (account,
+  ratings, reviews, follows, request logs) and for how long, that account deletion already erases
+  everything, and the rules for reviews (what gets removed after a report). Pages `/privacy` and
+  `/terms`, linked from the footer and `/login`. Blocks "Create the OAuth apps" for production.
+- **Database backups (needs: where to store them).** The catalog can be re-imported; ratings,
+  reviews, top 10s and follows can't. Either the managed Postgres's own backups (check retention
+  and point-in-time restore when picking it) or a scheduled `pg_dump` from GitHub Actions to an
+  S3-compatible bucket
+  ([decisions.md #13](agents/decisions.md#13-the-app-runs-on-any-node-host-jobs-run-outside-it)).
+  Whichever: restore once, on purpose, to prove it works.
+- **Decide whether the UI gets Portuguese (pt-BR).** The UI is English only; the first users are
+  likely Brazilian. Cheaper the earlier it's decided: today every string is inline in components.
+  If yes: typed message objects per language (no library), locale from `Accept-Language` plus a
+  setting, and the screenshot sweep in both languages (pt-BR labels are longer).
+- **Decide whether new accounts' votes count immediately.** Today they do (2026-11-07). The risk is
+  a burst of fresh accounts pushing a theme up the rankings; the write rate limit
+  ([decisions.md #14](agents/decisions.md#14-write-rate-limits-are-counted-in-postgres-one-budget-per-user))
+  only slows one account. Options: count votes only after the account is N days old or has N
+  ratings, or keep counting them and rely on the bayesian prior plus manual cleanup.
 
 ## After v0
 
